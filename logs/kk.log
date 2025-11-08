@@ -3,3 +3,9 @@
 2025-11-04T21:47:23.358+0800	debug	debug log1:	{"method": "GET", "path": "/log", "query": "id=1&name=king"}
 2025-11-04T21:47:24.775+0800	debug	debug log2:	{"method": "GET", "path": "/log2"}
 2025-11-05T16:10:09.424+0800	debug	debug log2:	{"method": "GET", "path": "/log2"}
+2025-11-08T16:28:19.758+0800	debug	debug log2:	{"method": "GET", "path": "/log2"}
+2025-11-08T16:29:23.828+0800	debug	debug log2:	{"method": "GET", "path": "/log2"}
+2025-11-08T16:29:26.717+0800	debug	debug log2:	{"method": "GET", "path": "/log2"}
+2025-11-08T16:29:28.798+0800	debug	debug log2:	{"method": "GET", "path": "/log2"}
+2025-11-08T17:24:41.963+0800	debug	debug log2:	{"method": "GET", "path": "/log2"}
+2025-11-08T17:25:13.019+0800	debug	debug log2:	{"method": "GET", "path": "/log2"}
