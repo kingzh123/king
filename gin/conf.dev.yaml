@@ -1,0 +1,29 @@
+server:
+  port: 8080
+  read_timeout: 60 # 从连接被接受(accept)到请求体被完全读取的时间限制
+  write_timeout: 60 # 从请求头读取结束到响应写入完成的时间限制
+
+database:
+  host: "127.0.0.1"
+  port: 3306
+  username: "postgers"
+  password: "123456"
+  dbname: "test"
+  sslmode: "disable"
+
+redis:
+  host: "127.0.0.1"
+  port: 6379
+  password: ""
+  db: 0
+
+log:
+  level: "info"
+  format: "text" # 或 "text"
+
+# 自定义业务配置
+app:
+  name: "go_study"
+  version: "1.0.0"
+  debug_mode: true
+  max_upload_size: 10485760 # 10MB

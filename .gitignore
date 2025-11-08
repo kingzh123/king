@@ -28,5 +28,7 @@ go.work.sum
 .env
 
 # Editor/IDE
-# .idea/
-# .vscode/
+.idea
+.config.yaml
+.air.toml
+.DS_Store
