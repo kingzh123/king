@@ -6,5 +6,12 @@
 </head>
 <body>
 <img src="/asset/img/xx.jpg">
+{{ template "sub/head.tmpl" .}}
+<div>
+    <div>姓名：{{.user.name}}</div>
+    <div>性别：{{.user.sex}}</div>
+    <div>年龄：{{.user.age}}</div>
+</div>
+<div>{{.name}}</div>
 </body>
 </html>

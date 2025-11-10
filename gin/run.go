@@ -3,22 +3,30 @@ package gin
 import (
 	"context"
 	"fmt"
+	"html/template"
 	m "king/gin/middlewares"
 	"king/routers"
 	"net/http"
 	"os"
 	"os/signal"
+	"strings"
 	"syscall"
 	"time"
 
 	"github.com/gin-gonic/gin"
 )
 
+func ToUpper(s string) string {
+	return strings.ToUpper(s)
+}
+
 func Run() {
 	logger := m.CustomLogger("")
 	// 三方日志库zap
 	router := gin.New()
 	router.Static("/asset", "./gin/asset")
+	router.SetFuncMap(template.FuncMap{"toUpper": ToUpper}) // 必须写在载入模板前面
+	router.LoadHTMLGlob("gin/template/**/*")
 	router.Use(m.ZapLogger(logger), m.ZapRecovery(logger, true))
 	router.MaxMultipartMemory = 8 << 20
 	//路由注册

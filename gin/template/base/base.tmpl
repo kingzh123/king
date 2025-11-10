@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{.title}}</title>
+</head>
+<body>
+{{ block "t1" . }} not t1 {{ end }}
+{{ block "t2" . }} not t2 {{ end }}
+{{ block "user/list" . }} not list {{ end }}
+{{ block "map/users" . }} not users {{ end }}
+</body>
+</html>

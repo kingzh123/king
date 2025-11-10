@@ -1,0 +1,41 @@
+{{template "base.tmpl" .}}
+
+{{define "content"}}
+<div>{{printf "%s %s" .name .title}}</div>
+{{end}}
+
+{{ define "t1" }}
+<div>t1</div>
+{{ end }}
+
+{{ define "t2" }}
+<div>t2</div>
+{{ end }}
+
+{{ define "user/list" }}
+    {{range .list}}
+    <div>{{.}}</div>
+    {{end}}
+{{ end }}
+<!--if-->
+<!--eq	等于 操作符：arg1 == arg2-->
+<!--ne	不等于 操作符：arg1 != arg2-->
+<!--lt	小于 操作符 arg1 < arg2-->
+<!--le	小于等于 操作符 arg1 <= arg2-->
+<!--gt	大于 操作符 arg1 > arg2-->
+<!--ge	大于等于 操作符: arg1 >= arg2-->
+{{ define "map/users" }}
+    {{ if .u }}
+        <div>users：</div>
+        {{ range $k, $v := .u }}
+        {{ if gt $v.Age 19 }}
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;{{ toUpper $v.Name }}</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;{{- $v.Age -}}</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;{{- $v.Address -}}</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;{{ printf "%d" (len $v.Address) }}</div>
+        {{ end }}
+        {{ end }}
+    {{ else }}
+        no users
+    {{ end }}
+{{ end }}
