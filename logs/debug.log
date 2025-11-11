@@ -421,3 +421,7 @@
 2025-11-10T18:36:01.131+0800	debug	/.well-known/appspecific/com.chrome.devtools.json basic logging	{"method": "GET", "query": "", "status": 404, "ip": "::1", "elapsed": 0.000001499}
 2025-11-10T18:36:29.803+0800	debug	/t2 basic logging	{"method": "GET", "query": "", "status": 200, "ip": "::1", "elapsed": 0.002419185}
 2025-11-10T18:36:29.822+0800	debug	/.well-known/appspecific/com.chrome.devtools.json basic logging	{"method": "GET", "query": "", "status": 404, "ip": "::1", "elapsed": 0.000001523}
+2025-11-10T21:35:11.753+0800	debug	/t2 basic logging	{"method": "GET", "query": "", "status": 200, "ip": "::1", "elapsed": 0.004084477}
+2025-11-10T21:35:11.782+0800	debug	/.well-known/appspecific/com.chrome.devtools.json basic logging	{"method": "GET", "query": "", "status": 404, "ip": "::1", "elapsed": 0.00000368}
+2025-11-11T14:55:05.052+0800	debug	/t2 basic logging	{"method": "GET", "query": "", "status": 200, "ip": "::1", "elapsed": 0.002553071}
+2025-11-11T14:55:05.099+0800	debug	/favicon.ico basic logging	{"method": "GET", "query": "", "status": 404, "ip": "::1", "elapsed": 0.000001208}
