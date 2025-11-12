@@ -12,6 +12,8 @@ func Track() {
 }
 
 func Runtime() {
+	fmt.Println("num cpu", runtime.NumCPU()) //cpu 数量
+	fmt.Println("num goroutine", runtime.NumGoroutine())
 	// 内存分配信息
 	mem := runtime.MemStats{}
 	runtime.ReadMemStats(&mem)
