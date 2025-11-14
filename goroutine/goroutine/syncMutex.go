@@ -10,6 +10,7 @@ var (
 	counter  int
 	counter2 int
 	sm       sync.Mutex
+	//sync.RWMutex 需要读写分离加锁时可以使用读写锁
 )
 
 func increment(wg *sync.WaitGroup) {
