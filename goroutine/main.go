@@ -9,7 +9,8 @@ func main() {
 	//g.Track()
 	//g.Runtime() // runtime
 	//g.Channel()
-	g.RunSyncMutex()
+	//g.RunSyncMutex()
 	//g.RunNotSyncMutex()
-	g.RunAtomic()
+	//g.RunAtomic()
+	g.RunSyncMap()
 }
