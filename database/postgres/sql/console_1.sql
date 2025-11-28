@@ -64,4 +64,36 @@ select string_agg(name, '/') as path from( select name from c_node order by id )
 --   ('关于我们 - 子项1', '/about-sub1', 2), -- 假设2是“关于我们”的ID
 --   ('服务 - 子项1', '/services-sub1', 3); -- 假设3是“服务”的ID
 
+-- 角色权限管理 postgresql 不存在 用户的概念，权限管理都是通过角色进行控制
+-- grant(授予) revoke(撤销)
+-- 创建登录角色
+create role king WITH LOGIN PASSWORD '123456';
+-- 授予权限
+GRANT all on table test.public.menus TO king;
+-- 撤销数据库权限
+REVOKE ALL ON DATABASE test FROM king;
+-- 赋予全部表的权限
+grant all on all tables in schema public to king;
+-- 授权schema角色权限
+grant all on schema custom to king2;
+-- 授权其他schema表权限
+grant select on table custom.users to king2;
+-- 修改用户密码
+alter role King2 with password '123456';
+
+-- 撤销全部表的权限
+revoke all on ALL TABLES IN SCHEMA PUBLIC FROM king;
+-- 分配数据库 所有者
+-- * 数据库拥有者不能被撤销，原因是数据库必须有一个拥有者。
+-- * 可以进行转移操作进行权限撤销
+-- * 一般情况不推荐使用
+alter database test owner to postgres;
+
+-- 分组查询
+select item,year,sum(quantity) as num from sales group by grouping sets ((item,year),())
+select item,year,sum(quantity) as num, count(1) as total from sales group by grouping sets ((item),(year),())
+-- 配置给定字段所有匹配的可能性
+select item,year,sum(quantity) as num from sales group by cube(item,year)
+
+
 
