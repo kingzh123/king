@@ -90,10 +90,13 @@ revoke all on ALL TABLES IN SCHEMA PUBLIC FROM king;
 alter database test owner to postgres;
 
 -- 分组查询
-select item,year,sum(quantity) as num from sales group by grouping sets ((item,year),())
-select item,year,sum(quantity) as num, count(1) as total from sales group by grouping sets ((item),(year),())
+select item,year,sum(quantity) as num from sales group by grouping sets ((item,year),());
+select item,year,sum(quantity) as num, count(1) as total from sales group by grouping sets ((item),(year),());
 -- 配置给定字段所有匹配的可能性
-select item,year,sum(quantity) as num from sales group by cube(item,year)
+select item,year,sum(quantity) as num from sales group by cube(item,year);
 
-
+-- distinct
+SELECT distinct customer_id FROM orders;
+SELECT count(DISTINCT customer_id) FROM orders;
+select DISTINCT ON (customer_id) * from orders order by customer_id,amount ASC;
 
