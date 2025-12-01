@@ -100,3 +100,10 @@ SELECT distinct customer_id FROM orders;
 SELECT count(DISTINCT customer_id) FROM orders;
 select DISTINCT ON (customer_id) * from orders order by customer_id,amount ASC;
 
+-- timestamp date timestamptz interval 时间类型
+select '2025-12-01 15:18:02'::timestamptz + interval '1 day';
+select '2025-12-01'::date + interval '1 day';
+
+-- enum 枚举类型 可以在创建字段时使用枚举类型
+CREATE TYPE mood AS ENUM ('sad', 'ok', 'happy');
+
