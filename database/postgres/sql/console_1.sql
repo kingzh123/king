@@ -107,3 +107,32 @@ select '2025-12-01'::date + interval '1 day';
 -- enum 枚举类型 可以在创建字段时使用枚举类型
 CREATE TYPE mood AS ENUM ('sad', 'ok', 'happy');
 
+-- json jsonb变量类型操作
+select '5 '::jsonb;
+SELECT '{"bar": "baz", "balance": 7.77, "active": false}'::json;
+select '["bar", "foo", "666"]'::jsonb ? '666';
+SELECT '["BAR"]'::json;
+SELECT '["BAR"] '::jsonb;
+select '{"lee": 2}'::json;
+select '{"lee": 2.00, "king": 3, "zhang": 2.65}'::jsonb ? 'king';
+select '["liu"]'::jsonb || '["lee"]'::jsonb || '["lee"]'::jsonb;
+select '{"xx": 1}'::jsonb || '{"xxx": 3}'::jsonb;
+-- json 和 jonsb 操作符
+-- ->、->>、#>、#>> 单个箭头返回jsonb 两个箭头返回文本 字符串代表索引 数值代表索引
+select '{"king": 1, "lee": 2}'::jsonb -> 'king'; --字符串为键 返回键对应的值
+select '[1,23,3,45,9]'::jsonb -> 1; -- 数值为下标索引 返回键对应的值
+select '[{"a":"foo"},{"b":"bar"},{"c":"baz"}]'::json->2;  -- 返回键对应的值
+select '{"a": {"b":{"c": "foo"}}}'::json#>'{a,b}'; -- 查询子级元素 返回对应的json值
+select '{"a":[1,2,3],"b":[4,5,6]}'::json#>>'{a,2}'; -- 查询子元素 返回对应text值
+-- jsonb 对比
+select '{"a":1, "b":2}'::jsonb @> '{"b":2}'::jsonb; -- 右侧顶层元素是否在左侧匹配 返回 boolean
+select '{"b":2}'::jsonb <@ '{"a":1, "b":2}'::jsonb; -- 和@>比对相反
+select '{"a":1, "b":2}'::jsonb ? 'b'; -- 键是否在左测jsonb顶层存在 返回 boolean
+select '{"a":1, "b":2, "c":3}'::jsonb ?| array['c', 'd']; -- 右侧数组中的元素是否在左侧jsonb中存在对应键 任何满足返回true
+select '["a", "b"]'::jsonb ?& array['a', 'b']; -- 右侧数组中的元素是否在左侧jsonb中存在对应键 全部满足返回true
+-- jsonb 操作
+select '["a", "b"]'::jsonb || '["c", "d"]'::jsonb; -- jsonb 拼接 返回拼接后新的 jsonb
+select '{"a": "1", "b": "2"}'::jsonb - 'a'; -- 删除左侧的键 返回删除后的jsonb
+select '["a", "b"]'::jsonb - 1; -- 删除左侧指定的下标元素 返回删除后的jsonb
+select '["a", {"b":1}]'::jsonb #- '{1,b}'; -- 删除对应的子元素 返回删除后的jsonb。{1,b}:表示第一个索引中的b元素
+
