@@ -136,3 +136,72 @@ select '{"a": "1", "b": "2"}'::jsonb - 'a'; -- 删除左侧的键 返回删除�
 select '["a", "b"]'::jsonb - 1; -- 删除左侧指定的下标元素 返回删除后的jsonb
 select '["a", {"b":1}]'::jsonb #- '{1,b}'; -- 删除对应的子元素 返回删除后的jsonb。{1,b}:表示第一个索引中的b元素
 
+-- jsonb_query_path 表达式及@@、@? 详细使用请参照官方文档
+select jsonb_path_query(info, '$.name') as name, jsonb_path_query(info, '$.skills') as skills
+from jsonb_users
+where (info->'age')::int > 25;
+select jsonb_path_query(info, '$.name') as name, jsonb_path_query(info, '$.skills') as skills
+from jsonb_users
+where info @@ '$.age > 25';
+SELECT * FROM jsonb_users where info @@ '$.name == "Jane"' and info @> '{"skills": ["Python"]}';
+SELECT * FROM jsonb_users where info @@ '$.name == "Jane"' and info->'skills' ?& array['Python']; -- 全部包含数组中
+SELECT * FROM jsonb_users WHERE NOT jsonb_exists_any(info->'skills', array['Python', 'SQL']); --不在数组中
+
+-- 函数
+SELECT INT '1' AS num, point '(1,2)' as p;
+select |/ 40 as a;-- 平方根
+select @ '-1' as num; -- 绝对值
+select abs(-1) as num;
+select ~ B'1000' AS num; -- 按位取反
+select (~ b'10010')::int as num;
+select array[1,2,3,4] <@ '{1,2,3}'; --数组是否包含 返回 boolean
+select array[1,2,3,4] @> '{1,2,3}';
+
+-- union
+select 1::text text union select 'ss';
+
+-- 操作符
+SELECT INT '1' AS num, point '(1,2)' as p;
+select |/ 40 as a; -- 平方根
+select @ '-1' as num; -- 绝对值
+select abs(-1) as num;
+select ~ B'1000' AS num; -- 按位取反
+select (~ b'10010')::int as num;
+select array[1,2,3,4] <@ '{1,2,3}'; --数组是否包含 返回 boolean
+select array[1,2,3,4] @> '{1,2,3}';
+select 1::text text union select 'ss';
+
+-- explain options
+explain select * from orders;
+-- options explain 执行的参数
+-- analyze 分析执行的时间
+explain analyze select * from orders;
+-- verbose 更详细的执行节点细节
+explain verbose select * from orders;
+explain analyze verbose select * from orders; -- analyze 和 verbose 顺序不能颠倒
+-- 返回结构
+-- cost:0..5.04 0-为启动时间(找到第一个值的代价) 5.04-总代价(找到全部值的代价)
+-- rows:估计返回行数
+-- width:估计每行的大小（字节）
+
+-- 索引
+-- postgres索引类型
+-- b-tree(默认):适用排序及范围查询的列 < > <= >= =
+-- gin:倒排索引。它适合于包含多个组成值的数据值，例如数组及全文检索。
+-- gist:为多维数据或非结构化数据提供的索引类型。
+-- sp-gist:gist变种，当数据超过百万条时，比gist提供更好的性能。
+-- hash:只处理简单等值比较 =
+-- brin:块范围索引
+
+-- 表所
+begin;
+lock table sales in access exclusive mode;
+insert into sales values ('apple', 2020, 3000);
+commit;
+
+--sql语句操作类型
+-- 数据定义语言 DDL (CREATE、ALTER等)
+-- 数据操作语言 DML (SELECT、UPDATE等)
+-- 数据控制语言 DCL (GRANT、REVOKE等)
+-- 事务控制语言 TCL (BEGIN、ROLLBACK、COMMIT等)
+
