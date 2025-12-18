@@ -1,0 +1,1 @@
+{"level":"info","ts":1765864863.825204,"caller":"gorm@v1.31.1/finisher_api.go:172","msg":"SQL","sql":"SELECT * FROM \"users\" WHERE \"users\".\"deleted_at\" IS NULL LIMIT 1","rows":1,"elapsed":0.004023329,"time":"2025-12-16 14:01:03.825","caller":"main.go:53"}

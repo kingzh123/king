@@ -1,7 +1,12 @@
 package main
 
 import (
-	model2 "king/gorm/model"
+	"context"
+	"fmt"
+	"king/database/model"
+	kg "king/gorm"
+
+	"gorm.io/gorm"
 )
 
 func main() {
@@ -37,6 +42,17 @@ func main() {
 	//	panic(err)
 	//}
 	//fmt.Printf("%+v\n", user)
-	model2.ToStrcut()
-
+	// gen postgres 表 自动生成 结构体
+	//model2.ToStrcut()
+	db, err := kg.ConnectPostgresDB()
+	if err != nil {
+		panic(err)
+	}
+	ctx := context.Background()
+	var user []model.User
+	user, err = gorm.G[model.User](db).Limit(1).Find(ctx)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(user)
 }
