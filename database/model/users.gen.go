@@ -7,17 +7,19 @@ package model
 import (
 	"time"
 
+	"github.com/go-playground/validator/v10"
 	"gorm.io/gorm"
 )
 
 const TableNameUser = "users"
+var validate = validator.New()
 
 // User mapped from table <users>
 type User struct {
 	ID        int64          `gorm:"column:id;not null" json:"id"`
 	Name      string         `gorm:"column:name" json:"name"`
 	Age       int64          `gorm:"column:age" json:"age"`
-	Email     string         `gorm:"column:email" json:"email"`
+	Email     string         `gorm:"column:email" validate:"email" json:"email"`
 	CreatedAt time.Time      `gorm:"column:created_at;default:CURRENT_TIMESTAMP" json:"created_at"`
 	UpdatedAt time.Time      `gorm:"column:updated_at;default:CURRENT_TIMESTAMP" json:"updated_at"`
 	DeletedAt gorm.DeletedAt `gorm:"column:deleted_at" json:"deleted_at"`
@@ -26,4 +28,8 @@ type User struct {
 // TableName User's table name
 func (*User) TableName() string {
 	return TableNameUser
+}
+
+func (u *User) Validate() error {
+	return validate.Struct(u)
 }
