@@ -1,0 +1,19 @@
+// 定义 Protocol Buffers
+syntax = "proto3";
+
+package api.v1;
+option go_package = "go-grpc-service/proto/user;user";
+
+service User{
+  rpc GetUser(GetUserRequest) returns (UserRes) {}
+}
+
+message GetUserRequest{
+  string id = 1;
+}
+
+message UserRes {
+  string id = 1;
+  string name = 2;
+  string email = 3;
+}
